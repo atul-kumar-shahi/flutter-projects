@@ -1,34 +1,56 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_app/answer_button.dart';
 import 'package:quiz_app/data/questions.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class QuestionScreen extends StatefulWidget {
-  const QuestionScreen({super.key});
+  const QuestionScreen({super.key,required this.choseOption});
+
+  final void Function(String answer)choseOption;
+
+
 
   @override
   State<QuestionScreen> createState() => _QuestionScreenState();
 }
 
 class _QuestionScreenState extends State<QuestionScreen> {
-  @override
+  var currentIndexQuestion = 0;
+  void changeQuestionIndex(String choseCorrectOption) {
+    widget.choseOption(choseCorrectOption);
+    setState(() {
+      currentIndexQuestion++;
+    });
+  }
 
-  final currentquestion=question[0];
+  @override
   Widget build(BuildContext context) {
-    return  Center(
-      child:  Column(
-        mainAxisSize: MainAxisSize.min,
+    final currentquestion = question[currentIndexQuestion];
+    return Container(
+      margin: const EdgeInsets.all(40),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text(currentquestion.question ,
-          style: TextStyle(fontSize: 20,color: Colors.white),),
-         const SizedBox(
+          Text(
+            currentquestion.question,
+            style: GoogleFonts.lato(
+              textStyle: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 26,
+                  fontWeight: FontWeight.bold),
+            ),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(
             height: 30,
           ),
-          AnswerButton(answer: currentquestion.answer[0],OnTap: (){},),
-          AnswerButton(answer: currentquestion.answer[1],OnTap: (){},),
-          AnswerButton(answer: currentquestion.answer[2],OnTap: (){},),
-          AnswerButton(answer: currentquestion.answer[3],OnTap: (){},),
-
-
+          ...currentquestion.getShuffledList().map((answers) {
+            return AnswerButton(answer: answers, OnTap: (){
+              changeQuestionIndex(answers);
+            },
+            );
+          }),
         ],
       ),
     );

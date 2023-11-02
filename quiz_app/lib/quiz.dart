@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_app/qestion_screen.dart';
 import 'package:quiz_app/homePage.dart';
+import 'package:quiz_app/data/questions.dart';
+import 'package:quiz_app/result_screen.dart';
 
 class Quizpage extends StatefulWidget {
   const Quizpage({super.key});
@@ -25,13 +27,40 @@ class _QuizpageState extends State<Quizpage> {
 
   //another way to initialize your variable while building your widget
   var activeScreen='start screen';
+
+  List<String>selectedAnswer=[];
+
   void switchScreen() {
     setState(() {
       activeScreen='Question screen' ;
     });
   }
+
+  void choseAnswer(String answer){
+    selectedAnswer.add(answer);
+
+    if(selectedAnswer.length==question.length)
+      {
+        setState(() {
+          activeScreen='answerScreen';
+          selectedAnswer=[];
+        });
+      }
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
+    Widget? showScreen;
+    if(activeScreen=='start screen') {
+      showScreen=HomePage(switchScreen);
+    } else if(activeScreen=='Question screen'){
+      showScreen=QuestionScreen(choseOption: choseAnswer);}
+    else if(activeScreen=='answerScreen'){
+      showScreen=ResultScreen(answerPressed: selectedAnswer);
+    }
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -47,7 +76,7 @@ class _QuizpageState extends State<Quizpage> {
                 end: Alignment.bottomRight,
               ),
             ),
-            child: activeScreen=='start screen'?HomePage(switchScreen):const QuestionScreen(),
+            child: showScreen,
         ),
       ),
 
