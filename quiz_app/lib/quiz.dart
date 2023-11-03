@@ -43,7 +43,6 @@ class _QuizpageState extends State<Quizpage> {
       {
         setState(() {
           activeScreen='answerScreen';
-          selectedAnswer=[];
         });
       }
   }
