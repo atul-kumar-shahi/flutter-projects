@@ -47,6 +47,13 @@ class _QuizpageState extends State<Quizpage> {
       }
   }
 
+  void backToStart(){
+    setState(() {
+      activeScreen='start screen';
+      selectedAnswer=[];
+    });
+  }
+
 
 
   @override
@@ -57,8 +64,10 @@ class _QuizpageState extends State<Quizpage> {
     } else if(activeScreen=='Question screen'){
       showScreen=QuestionScreen(choseOption: choseAnswer);}
     else if(activeScreen=='answerScreen'){
-      showScreen=ResultScreen(answerPressed: selectedAnswer);
+      showScreen=ResultScreen(answerPressed: selectedAnswer,onRestart: backToStart,);
     }
+
+
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -67,8 +76,8 @@ class _QuizpageState extends State<Quizpage> {
             decoration:const BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  Color.fromARGB(255, 35, 5, 75),
-                  Color.fromARGB(255, 97, 17, 213),
+                  Color.fromARGB(210, 54, 4, 119),
+                  Color.fromARGB(255, 49, 3, 114),
 
                 ],
                 begin: Alignment.topLeft,

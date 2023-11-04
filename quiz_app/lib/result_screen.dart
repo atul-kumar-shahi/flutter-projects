@@ -3,7 +3,8 @@ import 'package:quiz_app/data/questions.dart';
 import 'package:quiz_app/question_summary_data.dart';
 
 class ResultScreen extends StatelessWidget {
-   ResultScreen({super.key, required this.answerPressed});
+ const  ResultScreen({super.key, required this.answerPressed,required this.onRestart});
+ final void Function() onRestart;
 
   final List<String> answerPressed;
 
@@ -50,10 +51,11 @@ class ResultScreen extends StatelessWidget {
               height: 30,
             ),
             QuestionSummary(summaryData),
+
             const SizedBox(
               height: 30,
             ),
-            ElevatedButton(onPressed: () {}, child: const Text('Start again'))
+            ElevatedButton(onPressed:onRestart, child: const Text('Start again'))
           ],
         ),
       ),
