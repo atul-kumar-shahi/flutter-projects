@@ -22,7 +22,6 @@ class _GoogleLoginState extends State<GoogleLogin> {
     _auth.authStateChanges().listen((event) {
       setState(() {
         _user=event;
-        print(_user);
       });
     });
   }

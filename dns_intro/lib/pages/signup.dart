@@ -1,4 +1,3 @@
-import 'package:dns_intro/home_screen.dart';
 import 'package:dns_intro/widgets/custom_button.dart';
 import 'package:dns_intro/widgets/custom_textfield.dart';
 import 'package:firebase_auth/firebase_auth.dart';
