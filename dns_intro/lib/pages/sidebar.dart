@@ -60,11 +60,30 @@ class _SideBarState extends State<SideBar> {
                   fit: BoxFit.cover,
                 ))),
           ),
-
           ListTile(
             leading: Icon(Icons.accessibility_new_rounded),
             title: Text('Mentors'),
+            trailing: IconButton(
+              icon: Icon(Icons.arrow_drop_down),
+              onPressed: (){
+                Column(
+                  children: [
+                    Text('Hello')
+                  ],
+                );
+              },
+            ),
             onTap: (){
+              DropdownMenuItem(
+                child: Column(
+                  children: [
+                    Text('Hello'),
+                    Text('Hello'),
+                    Text('Hello'),
+                    Text('Hello'),
+                  ],
+                ),
+              );
               Navigator.pop(context);
               Navigator.push(context, MaterialPageRoute(builder: (context)=>Mentors()));
             },
